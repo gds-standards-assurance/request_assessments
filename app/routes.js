@@ -7,5 +7,19 @@ router.get('/', function (req, res) {
 })
 
 // add your routes here
+// Route index page
+router.get('/start', function (req, res) {
+  res.render('start')
+})
+
+router.get('/stage', function (req, res) {
+  res.render('stage')
+})
+
+router.get('/pick-date', function (req, res) {
+  res.render('pick-date')
+})
+
+
 
 module.exports = router

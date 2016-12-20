@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+  GOV.UK prototype kit
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      <h1 class="heading-xlarge">
+        Assessment details
+      </h1>
+      <p>
+        dum dee dum dee dum
+      </p>
+      <form>
+        <h2 class="heading-medium">What stage assessment does your service need?</h2>
+        <div class="form-group">
+            <fieldset>
+              <legend class="visually-hidden">What stage assessment does your service need?</legend>
+
+              <label class="block-label selection-button-radio" for="radio-1">
+                <input id="radio-1" type="radio" name="radio-group" value="Alpha">
+                Alpha
+              </label>
+              <label class="block-label selection-button-radio" for="radio-2">
+                <input id="radio-2" type="radio" name="radio-group" value="Beta">
+                Beta
+              </label>
+              <label class="block-label selection-button-radio" for="radio-3">
+                <input id="radio-3" type="radio" name="radio-group" value="Live">
+                Live
+              </label>
+
+            </fieldset>
+          </div>
+        <p>
+          <a href="/pick-date" class="button">Save and continue</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
