@@ -119,4 +119,19 @@ router.post('/summary', function(req, res) {
   res.render('summary', {user_info: sess.user_info})
 })
 
+router.post('/finish', function(req, res){
+  sess = req.session
+
+  if (sess.user_info){
+    //TODO submit the form into a database and send email via Notify
+
+  } else {
+    //throw user back to the start page
+    console.log('\nSession does not exist. go back to the start page')
+    return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
+  }
+
+  res.render('summary', {user_info: sess.user_info, message: "Your details have been submitted!"})
+})
+
 module.exports = router

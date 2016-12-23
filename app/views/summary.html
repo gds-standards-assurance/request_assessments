@@ -11,7 +11,11 @@
     <div class="column-two-thirds">
 
       <h1 class="heading-xlarge">
-        Here is the information you provided
+        {% if message %>}
+          {{message}}
+        {% else %}
+          Here is the information you provided
+        {% endif %}
       </h1>
       <p>
         dum dee dum dee dum
