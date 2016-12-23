@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+  GOV.UK prototype kit
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      <h1 class="heading-xlarge">
+        Here is the information you provided
+      </h1>
+      <p>
+        dum dee dum dee dum
+      </p>
+      <form action="finish" method="post">
+
+        {% if user_info %}
+          <div>Name: {{user_info.name}}</div>
+          <div>Email address: {{user_info.email}}</div>
+          <div>Department: {{user_info.dept}}</div>
+          <div>Service: {{user_info.service_name}}</div>
+          <div>Stage: {{user_info.assessment_stage}}</div>
+          <div>Date requested: {{user_info.assessment_date}}</div>
+        {% endif %}
+
+
+        <p>
+          <a href="#" class="button continue">Confirm and submit</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+
+<!--
+user_info:
+   { name: 'Juniper Scott',
+     email: 'juniper.s@nomansland.com',
+     dept: 'APP',
+     service_name: 'IFER ifier ifew',
+     assessment_stage: 'Live',
+     assessment_month: 'March',
+     assessment_date: '09/03/2016' } }
+-->

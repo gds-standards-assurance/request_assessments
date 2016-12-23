@@ -25,4 +25,10 @@ $(document).ready(function () {
   // to toggle hidden content
   var showHideContent = new GOVUK.ShowHideContent()
   showHideContent.init()
+
+
+  $(".button.continue").on("click", function(){
+    console.log("it is time to submit the form... ");
+    $("form").submit();
+  })
 })

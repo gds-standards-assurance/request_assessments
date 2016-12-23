@@ -14,35 +14,25 @@
         Choose the date for your assessment
       </h1>
       <p>
-        You can select assessments only from 4 weeks in advance. 
+        You can select assessments only from 4 weeks in advance.
       </p>
-      <form>
+      <form action="pick-day" method="post">
         <h2 class="heading-medium">Which month would you like to have?</h2>
         <div class="form-group">
             <fieldset>
               <legend class="visually-hidden">Which month would you like to have?</legend>
-
-              <label class="block-label selection-button-radio" for="radio-1">
-                <input id="radio-1" type="radio" name="radio-group" value="January">
-                January
-              </label>
-              <label class="block-label selection-button-radio" for="radio-2">
-                <input id="radio-2" type="radio" name="radio-group" value="February">
-                February
-              </label>
-              <label class="block-label selection-button-radio" for="radio-3">
-                <input id="radio-3" type="radio" name="radio-group" value="March">
-                March
-              </label>
-              <label class="block-label selection-button-radio" for="radio-3">
-                <input id="radio-3" type="radio" name="radio-group" value="April">
-                April
-              </label>
-
+              {% for month in months %}
+                <label class="block-label selection-button-radio" for="radio-{{loop.index}}">
+                  <input id="radio-{{loop.index}}" type="radio" name="assessment_month" value="{{month}}">
+                  {{month}}
+                </label>
+              {% else %}
+                <p>you will need to start again... there has been a problem</p>
+              {% endfor %}
             </fieldset>
           </div>
         <p>
-          <a href="/pick-day" class="button">Save and continue</a>
+          <a href="#" class="button continue">Save and continue</a>
         </p>
       </form>
     </div>
