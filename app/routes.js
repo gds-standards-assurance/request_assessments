@@ -3,6 +3,9 @@ const util = require('util')
 var getDatesInMonth = require('../lib/helper.js')
 
 
+var mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+
 var router = express.Router()
 
 var sess;
@@ -57,7 +60,6 @@ router.post('/pick-date', function (req, res) {
     return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
   }
 
-  var mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
   var today = new Date();
   var earliestdate = new Date();
   earliestdate.setDate(today.getDate() + 28);
@@ -72,6 +74,7 @@ router.post('/pick-date', function (req, res) {
   }
 
   var _month = earliestdate.getMonth();
+
   var months = [mlist[_month], mlist[_month + 1], mlist[_month + 2], mlist[_month + 3]]
   console.log('\n Session details' + util.inspect(sess))
   console.log('\n Months: ' + util.inspect(months))
@@ -80,10 +83,12 @@ router.post('/pick-date', function (req, res) {
 
 router.post('/pick-day', function(req, res){
   sess = req.session
-  var _month;
+  var _month, _monthnum;
+
   if (sess.user_info){
     var assessment_month = req.body.assessment_month
     _month = assessment_month
+    _monthnum = sess.user_info.month_index
     sess.user_info.assessment_month = assessment_month
   } else {
     //throw user back to the start page
@@ -91,11 +96,11 @@ router.post('/pick-day', function(req, res){
     return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
   }
 
-  var dates = getDatesInMonth(1) //get dates in February
+  var dates = getDatesInMonth(mlist.indexOf(_month)) //get dates in Month
   console.log('\n dates in feb: ' + util.inspect(dates))
 
   console.log('\n Session details' + util.inspect(sess))
-  res.render('pick-day', {month_picked: assessment_month})
+  res.render('pick-day', {month_picked: assessment_month, dates: dates})
 })
 
 router.post('/summary', function(req, res) {
