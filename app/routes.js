@@ -1,5 +1,7 @@
 var express = require('express')
 const util = require('util')
+var getDatesInMonth = require('../lib/helper.js')
+
 
 var router = express.Router()
 
@@ -89,9 +91,11 @@ router.post('/pick-day', function(req, res){
     return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
   }
 
+  var dates = getDatesInMonth(1) //get dates in February
+  console.log('\n dates in feb: ' + util.inspect(dates))
+
   console.log('\n Session details' + util.inspect(sess))
   res.render('pick-day', {month_picked: assessment_month})
-
 })
 
 router.post('/summary', function(req, res) {
