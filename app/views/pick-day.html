@@ -20,12 +20,12 @@
         <h2 class="heading-medium">Which day in <strong>{{month_picked}}</strong> would you like to have?</h2>
         <div class="form-group">
           <legend class="visually-hidden">Which day in {{month_picked}} would you like to have?</legend>
-          {% for week in dates %}
+          {% for idx, week in dates %}
             <fieldset>
-              <h2 class="heading-small">Week {{loop.index}}</h2>
+              <h2 class="heading-small">Week {{idx}}</h2>
               {% for days in week %}
-                <label class="block-label selection-button-radio" for="{{loop.index}}">
-                  <input id="{{loop.index}}" type="radio" name="assessment_date" value="{{days}}">
+                <label class="block-label selection-button-radio" for="{{idx}}-{{loop.index}}">
+                  <input id="{{idx}}-{{loop.index}}" type="radio" name="assessment_date" value="{{days}}">
                   {{days}}
                 </label>
               {% endfor %}

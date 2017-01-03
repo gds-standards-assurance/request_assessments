@@ -2,6 +2,12 @@ var express = require('express')
 const util = require('util')
 var getDatesInMonth = require('../lib/helper.js')
 
+var NotifyClient = require('notifications-node-client').NotifyClient
+
+var apiKey = "config.notifyKey";
+var notifyClient = new NotifyClient(apiKey);
+
+var team_email = "config.teamEmail";
 
 var mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
@@ -73,6 +79,7 @@ router.post('/pick-date', function (req, res) {
     earliestdate.setDate(earliestdate.getDate() + 2);
   }
 
+  sess.user_info.earliestdate = earliestdate;
   var _month = earliestdate.getMonth();
 
   var months = [mlist[_month], mlist[_month + 1], mlist[_month + 2], mlist[_month + 3]]
@@ -83,12 +90,13 @@ router.post('/pick-date', function (req, res) {
 
 router.post('/pick-day', function(req, res){
   sess = req.session
-  var _month, _monthnum;
+  var _month, _monthnum, _startdate;
 
   if (sess.user_info){
     var assessment_month = req.body.assessment_month
     _month = assessment_month
     _monthnum = sess.user_info.month_index
+    _startdate = sess.user_info.earliestdate
     sess.user_info.assessment_month = assessment_month
   } else {
     //throw user back to the start page
@@ -96,7 +104,7 @@ router.post('/pick-day', function(req, res){
     return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
   }
 
-  var dates = getDatesInMonth(mlist.indexOf(_month)) //get dates in Month
+  var dates = getDatesInMonth(mlist.indexOf(_month), _startdate) //get dates in Month
   console.log('\n dates in feb: ' + util.inspect(dates))
 
   console.log('\n Session details' + util.inspect(sess))
@@ -119,11 +127,44 @@ router.post('/summary', function(req, res) {
   res.render('summary', {user_info: sess.user_info})
 })
 
+router.post("/notify", function (req, res) {
+ var emailAddress = req.body.service_manager_email;
+
+ notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", emailAddress, {
+   'service': req.body.service_name,
+   'service_manager': req.body.service_manager_name,
+   'assessment_date': req.body.assessment_date,
+   'assessment_time': req.body.assessment_time
+ });
+
+ res.redirect("/send-email")
+
+})
+
 router.post('/finish', function(req, res){
   sess = req.session
 
   if (sess.user_info){
     //TODO submit the form into a database and send email via Notify
+    var _userinfo = sess.user_info
+
+    //notify the user
+    notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", _userinfo.email, {
+      'service': _userinfo.service_name,
+      'service_manager': _userinfo.name,
+      'assessment_date': _userinfo.assessment_date,
+      'stage': _userinfo.assessment_stage,
+      'assessment_time': "AM"
+    })
+
+    //notify the team
+    notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", team_email, {
+      'service': _userinfo.service_name,
+      'service_manager': _userinfo.name,
+      'assessment_date': _userinfo.assessment_date,
+      'stage': _userinfo.assessment_stage,
+      'assessment_time': "AM"
+    })
 
   } else {
     //throw user back to the start page
