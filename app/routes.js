@@ -4,12 +4,13 @@ var getDatesInMonth = require('../lib/helper.js')
 
 var NotifyClient = require('notifications-node-client').NotifyClient
 
-var apiKey = "config.notifyKey";
-var notifyClient = new NotifyClient(apiKey);
+var apiKey = process.env.NOTIFY_KEY
 
-var team_email = "config.teamEmail";
+var notifyClient = new NotifyClient(apiKey)
 
-var mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+var team_email = process.env.STANDARDS_TEAM_EMAIL
+
+var mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
 var router = express.Router()
@@ -125,20 +126,6 @@ router.post('/summary', function(req, res) {
 
   console.log('\n Session details' + util.inspect(sess))
   res.render('summary', {user_info: sess.user_info})
-})
-
-router.post("/notify", function (req, res) {
- var emailAddress = req.body.service_manager_email;
-
- notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", emailAddress, {
-   'service': req.body.service_name,
-   'service_manager': req.body.service_manager_name,
-   'assessment_date': req.body.assessment_date,
-   'assessment_time': req.body.assessment_time
- });
-
- res.redirect("/send-email")
-
 })
 
 router.post('/finish', function(req, res){
