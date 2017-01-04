@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+  GOV.UK prototype kit
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      <h1 class="heading-xlarge">
+        {% if message %}
+          {{message}}
+        {% else %}
+          Confirm your GDS service assessment request
+        {% endif %}
+      </h1>
+
+      <p>If a member of the GDS Service Assessment team has not been in contact with you or via your department’s assessment lead, they will contact you before your assessment. </p>
+
+      <p>You will also receive an email requesting briefing material about your service. The assessment panel will review this prior to your assessment. Please provide this promptly as late submissions will not be accepted and you may need to reschedule your assessment. </p>
+
+
+    </div>
+  </div>
+</main>
+
+{% endblock %}

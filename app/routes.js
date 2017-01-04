@@ -45,9 +45,8 @@ router.post('/stage', function(req, res) {
   var name = req.body.service_manager_name
   var email = req.body.service_manager_email
   var dept = req.body.service_manager_department
-  var service_name = req.body.service_name
 
-  data = { name: name, email: email, dept: dept, service_name: service_name }
+  data = { name: name, email: email, dept: dept }
   sess.user_info = data
 
   console.log('\nService Manager details: ' + name + ', ' + email)
@@ -59,8 +58,10 @@ router.post('/pick-date', function (req, res) {
   sess = req.session
 
   if (sess.user_info){
+    var service_name = req.body.service_name
     var assessment_stage = req.body.assessment_stage
     sess.user_info.assessment_stage = assessment_stage
+    sess.user_info.service_name = service_name
   } else {
     //throw user back to the start page
     console.log('\nSession does not exist. go back to the start page')
@@ -175,7 +176,8 @@ router.post('/finish', function(req, res){
     return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
   }
 
-  res.render('summary', {user_info: sess.user_info, message: "Your details have been submitted!"})
+  res.render('complete', {user_info: sess.user_info, message: "Your request has been submitted."})
 })
+
 
 module.exports = router

@@ -14,22 +14,23 @@
         Choose the date for your assessment
       </h1>
       <p>
-        You can select assessments only from 4 weeks in advance.
+        GDS service assessments are usually held at Aviation House in London and typically takes 4 hours.
+        Service Team should aim to arrive 30 minutes prior to setup.
       </p>
       <form action="summary" method="post">
-        <h2 class="heading-medium">Select the time of day you wish to have your assessment on {{picked_date}}</h2>
+        <h2 class="heading-medium">Which time slot on {{picked_date}} would you like?</h2>
         <div class="form-group">
             <fieldset class="inline">
 
-              <legend class="visually-hidden">Select the time of day you wish to have your assessment on {{picked_date}}</legend>
+              <legend class="visually-hidden">Which time slot on {{picked_date}} would you like?</legend>
 
               <label class="block-label selection-button-radio" for="radio-inline-1">
-                <input id="radio-inline-1" type="radio" name="assessment_time" value="AM">
-                AM
+                <input id="radio-inline-1" type="radio" name="assessment_time" value="10:00 - 14:00">
+                10:00 to 14:00
               </label>
               <label class="block-label selection-button-radio" for="radio-inline-2">
-                <input id="radio-inline-2" type="radio" name="assessment_time" value="PM">
-                PM
+                <input id="radio-inline-2" type="radio" name="assessment_time" value="13:00 - 17:00">
+                1PM to 5PM
               </label>
 
             </fieldset>

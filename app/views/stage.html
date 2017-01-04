@@ -11,16 +11,23 @@
     <div class="column-two-thirds">
 
       <h1 class="heading-xlarge">
-        Assessment details
+        About your service
       </h1>
       <p>
-        dum dee dum dee dum
+        Provide details about your service and which phase you would like to be assessed for, <a href="https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works" target="_blank">Alpha</a>, <a href="https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works" target="_blank">Beta</a> or <a href="https://www.gov.uk/service-manual/agile-delivery/how-the-live-phase-works" target="_blank">Live</a>. There are criteria to meet the <a href="https://www.gov.uk/service-manual/service-standard" target="_blank">Digital Service Standard</a> for each phase.
       </p>
       <form action="pick-date" method="post">
-        <h2 class="heading-medium">What stage assessment does your service need?</h2>
         <div class="form-group">
             <fieldset>
-              <legend class="visually-hidden">What stage assessment does your service need?</legend>
+              <h2 class="heading-medium">What is the name of your service</h2>
+              <div class="form-group">
+                <label class="form-label" for="service-name">Your service name</label>
+                <input class="form-control" id="service-name" name="service_name" type="text">
+              </div>
+
+
+              <h2 class="heading-medium">What phase will your service be assessed on?</h2>
+              <legend class="visually-hidden">What phase will your service be assessed on?</legend>
 
               <label class="block-label selection-button-radio" for="radio-1">
                 <input id="radio-1" type="radio" name="assessment_stage" value="Alpha">

@@ -11,15 +11,15 @@
     <div class="column-two-thirds">
 
       <h1 class="heading-xlarge">
-        Choose the date for your assessment
+        Choose your assessment date
       </h1>
       <p>
-        You can select assessments only from 4 weeks in advance.
+        Only available days can be selected. There are no assessments are held on Fridays.
       </p>
       <form action="pick-time" method="post">
-        <h2 class="heading-medium">Which day in <strong>{{month_picked}}</strong> would you like to have?</h2>
+        <h2 class="heading-medium">Which date would you like your assessment on?</h2>
         <div class="form-group">
-          <legend class="visually-hidden">Which day in {{month_picked}} would you like to have?</legend>
+          <legend class="visually-hidden">Which date would you like your assessment on?</legend>
           {% for idx, week in dates %}
             <fieldset>
               <h2 class="heading-small">Week {{idx}}</h2>

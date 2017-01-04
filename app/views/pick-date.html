@@ -11,23 +11,23 @@
     <div class="column-two-thirds">
 
       <h1 class="heading-xlarge">
-        Choose the date for your assessment
+        Choose your assessment date
       </h1>
       <p>
-        You can select assessments only from 4 weeks in advance.
+        Dates are only available from 4 weeks in advance. This gives GDS sufficient time to allocated and schedule the appropriate assessors to your assessment panel.
       </p>
       <form action="pick-day" method="post">
-        <h2 class="heading-medium">Which month would you like to have?</h2>
+        <h2 class="heading-medium">Which month would you like your assessment in?</h2>
         <div class="form-group">
             <fieldset>
-              <legend class="visually-hidden">Which month would you like to have?</legend>
+              <legend class="visually-hidden">Which month would you like your assessment in?</legend>
               {% for month in months %}
                 <label class="block-label selection-button-radio" for="radio-{{loop.index}}">
                   <input id="radio-{{loop.index}}" type="radio" name="assessment_month" value="{{month}}">
                   {{month}}
                 </label>
               {% else %}
-                <p>you will need to start again... there has been a problem</p>
+                <p><a href="/">you will need to start again</a>... there has been a problem</p>
               {% endfor %}
             </fieldset>
           </div>

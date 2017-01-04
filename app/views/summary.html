@@ -14,14 +14,14 @@
         {% if message %}
           {{message}}
         {% else %}
-          Here is the information you provided
+          Confirm your GDS service assessment request
         {% endif %}
       </h1>
       <p>
-        dum dee dum dee dum
+        Please confirm your details and assessment date is correct. GDS will use this information to contact you about your upcoming assessment.
       </p>
       <form action="finish" method="post">
-
+        <h2 class="heading-small">Your request</h2>
         {% if user_info %}
           <div>Name: {{user_info.name}}</div>
           <div>Email address: {{user_info.email}}</div>
