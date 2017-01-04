@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+  GOV.UK prototype kit
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      <h1 class="heading-xlarge">
+        Choose the date for your assessment
+      </h1>
+      <p>
+        You can select assessments only from 4 weeks in advance.
+      </p>
+      <form action="summary" method="post">
+        <h2 class="heading-medium">Select the time of day you wish to have your assessment on {{picked_date}}</h2>
+        <div class="form-group">
+            <fieldset class="inline">
+
+              <legend class="visually-hidden">Select the time of day you wish to have your assessment on {{picked_date}}</legend>
+
+              <label class="block-label selection-button-radio" for="radio-inline-1">
+                <input id="radio-inline-1" type="radio" name="assessment_time" value="AM">
+                AM
+              </label>
+              <label class="block-label selection-button-radio" for="radio-inline-2">
+                <input id="radio-inline-2" type="radio" name="assessment_time" value="PM">
+                PM
+              </label>
+
+            </fieldset>
+
+          </div>
+        <p>
+          <a href="#" class="button continue">Save and continue</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

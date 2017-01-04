@@ -112,12 +112,28 @@ router.post('/pick-day', function(req, res){
   res.render('pick-day', {month_picked: assessment_month, dates: dates})
 })
 
-router.post('/summary', function(req, res) {
+router.post('/pick-time', function(req, res){
   sess = req.session
 
   if (sess.user_info){
     var assessment_date = req.body.assessment_date
     sess.user_info.assessment_date = assessment_date
+  } else {
+    //throw user back to the start page
+    console.log('\nSession does not exist. go back to the start page')
+    return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
+  }
+
+  console.log('\n Session details' + util.inspect(sess))
+  res.render('pick-time', {picked_date: sess.user_info.assessment_date})
+})
+
+router.post('/summary', function(req, res) {
+  sess = req.session
+
+  if (sess.user_info){
+    var assessment_time = req.body.assessment_time
+    sess.user_info.assessment_time = assessment_time
   } else {
     //throw user back to the start page
     console.log('\nSession does not exist. go back to the start page')
