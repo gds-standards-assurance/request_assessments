@@ -154,20 +154,22 @@ router.post('/finish', function(req, res){
 
     //notify the user
     notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", _userinfo.email, {
-      'service': _userinfo.service_name,
+      'service_name': _userinfo.service_name,
       'service_manager': _userinfo.name,
       'assessment_date': _userinfo.assessment_date,
-      'stage': _userinfo.assessment_stage,
-      'assessment_time': "AM"
+      'service_stage': _userinfo.assessment_stage,
+      'assessment_time': _userinfo.assessment_time,
+      'briefing_deadline': _userinfo.assessment_date
     })
 
     //notify the team
     notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", team_email, {
-      'service': _userinfo.service_name,
+      'service_name': _userinfo.service_name,
       'service_manager': _userinfo.name,
       'assessment_date': _userinfo.assessment_date,
-      'stage': _userinfo.assessment_stage,
-      'assessment_time': "AM"
+      'service_stage': _userinfo.assessment_stage,
+      'assessment_time': _userinfo.assessment_time,
+      'briefing_deadline': _userinfo.assessment_date
     })
 
   } else {
