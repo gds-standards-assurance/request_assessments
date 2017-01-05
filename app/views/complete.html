@@ -10,17 +10,27 @@
   <div class="grid-row">
     <div class="column-two-thirds">
 
-      <h1 class="heading-xlarge">
-        {% if message %}
+      <div class="govuk-box-highlight">
+        <h1 class="bold-large">{% if message %}
           {{message}}
         {% else %}
           Confirm your GDS service assessment request
-        {% endif %}
-      </h1>
+        {% endif %}</h1>
+        <p>
+          Your reference number is <br>
+          <strong class="heading-medium">HDJ2123F</strong>
+        </p>
+      </div>
+      <p>We have sent you a confirmation email.</p>
 
+      <h2 class="heading-medium">What happens next</h2>
       <p>If a member of the GDS Service Assessment team has not been in contact with you or via your department’s assessment lead, they will contact you before your assessment. </p>
-
       <p>You will also receive an email requesting briefing material about your service. The assessment panel will review this prior to your assessment. Please provide this promptly as late submissions will not be accepted and you may need to reschedule your assessment. </p>
+
+      <!-- <p><a href="#">What did you think of this service?</a> (takes 30 seconds)</p> -->
+
+
+    </div>
 
 
     </div>
