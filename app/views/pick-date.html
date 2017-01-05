@@ -10,6 +10,20 @@
   <div class="grid-row">
     <div class="column-two-thirds">
 
+      {% if errors %}
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          Please fix the errors on this page
+        </h1>
+
+        <ul class="error-summary-list">
+          {% if errors.assessment_month %}<li><a href="#assessment-month">{{errors.assessment_month}}</a></li>{% endif %}
+        </ul>
+
+      </div>
+      {% endif %}
+
       <h1 class="heading-xlarge">
         Choose your assessment date
       </h1>
@@ -18,9 +32,11 @@
       </p>
       <form action="pick-day" method="post">
         <h2 class="heading-medium">Which month would you like your assessment in?</h2>
-        <div class="form-group">
+        <div class="form-group {{ " error" if errors.assessment_month }}" id="assessment-month">
             <fieldset>
               <legend class="visually-hidden">Which month would you like your assessment in?</legend>
+              {% if errors.assessment_month %}<span class="error-message">{{errors.assessment_month}}</span>{% endif %}
+
               {% for month in months %}
                 <label class="block-label selection-button-radio" for="radio-{{loop.index}}">
                   <input id="radio-{{loop.index}}" type="radio" name="assessment_month" value="{{month}}">

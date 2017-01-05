@@ -10,6 +10,20 @@
   <div class="grid-row">
     <div class="column-two-thirds">
 
+      {% if errors %}
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          Please fix the errors on this page
+        </h1>
+
+        <ul class="error-summary-list">
+          {% if errors.assessment_time %}<li><a href="#assessment-time">{{errors.assessment_time}}</a></li>{% endif %}
+        </ul>
+
+      </div>
+      {% endif %}
+
       <h1 class="heading-xlarge">
         Choose the date for your assessment
       </h1>
@@ -19,10 +33,11 @@
       </p>
       <form action="summary" method="post">
         <h2 class="heading-medium">Which time slot on {{picked_date}} would you like?</h2>
-        <div class="form-group">
+        <div class="form-group {{ " error" if errors.assessment_time }}" id="assessment-time">
             <fieldset class="inline">
 
               <legend class="visually-hidden">Which time slot on {{picked_date}} would you like?</legend>
+              {% if errors.assessment_time %}<span class="error-message">{{errors.assessment_time}}</span>{% endif %}
 
               <label class="block-label selection-button-radio" for="radio-inline-1">
                 <input id="radio-inline-1" type="radio" name="assessment_time" value="10:00 - 14:00">

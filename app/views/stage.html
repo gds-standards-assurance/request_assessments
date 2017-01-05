@@ -10,6 +10,22 @@
   <div class="grid-row">
     <div class="column-two-thirds">
 
+      {% if errors %}
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-2" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-2">
+          Please fix the errors on this page
+        </h1>
+
+        <ul class="error-summary-list">
+          {% if errors.service_name %}<li><a href="#service-name">{{errors.service_name}}</a></li>{% endif %}
+          {% if errors.assessment_stage %}<li><a href="#service-phase">{{errors.assessment_stage}}</a></li>{% endif %}
+        </ul>
+
+      </div>
+      {% endif %}
+
+
       <h1 class="heading-xlarge">
         About your service
       </h1>
@@ -17,28 +33,35 @@
         Provide details about your service and which phase you would like to be assessed for, <a href="https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works" target="_blank">Alpha</a>, <a href="https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works" target="_blank">Beta</a> or <a href="https://www.gov.uk/service-manual/agile-delivery/how-the-live-phase-works" target="_blank">Live</a>. There are criteria to meet the <a href="https://www.gov.uk/service-manual/service-standard" target="_blank">Digital Service Standard</a> for each phase.
       </p>
       <form action="pick-date" method="post">
-        <div class="form-group">
+        <h2 class="heading-medium">What is the name of your service</h2>
+        <div class="form-group {{ " error" if errors.service_name }}">
             <fieldset>
-              <h2 class="heading-medium">What is the name of your service</h2>
               <div class="form-group">
-                <label class="form-label" for="service-name">Your service name</label>
-                <input class="form-control" id="service-name" name="service_name" type="text">
+                <label for="service-name">
+                  <span class="form-label-bold">Your service name</span>
+                  {% if errors.service_name %}<span class="error-message">{{errors.service_name}}</span>{% endif %}
+                </label>
+                <input class="form-control" id="service-name" name="service_name" type="text" value={{user_info.service_name}}>
               </div>
+            </fieldset>
+        </div>
 
+        <h2 class="heading-medium">What phase will your service be assessed on?</h2>
+        <div class="form-group {{ " error" if errors.assessment_stage }}" id="service-phase">
 
-              <h2 class="heading-medium">What phase will your service be assessed on?</h2>
+            <fieldset>
               <legend class="visually-hidden">What phase will your service be assessed on?</legend>
-
+              {% if errors.assessment_stage %}<span class="error-message">{{errors.assessment_stage}}</span>{% endif %}
               <label class="block-label selection-button-radio" for="radio-1">
-                <input id="radio-1" type="radio" name="assessment_stage" value="Alpha">
+                <input id="radio-1" type="radio" name="assessment_stage" value="Alpha" {% if user_info.assessment_stage == "Alpha" %}checked="checked"{% endif %}>
                 Alpha
               </label>
               <label class="block-label selection-button-radio" for="radio-2">
-                <input id="radio-2" type="radio" name="assessment_stage" value="Beta">
+                <input id="radio-2" type="radio" name="assessment_stage" value="Beta" {% if user_info.assessment_stage == "Beta" %}checked="checked"{% endif %}>
                 Beta
               </label>
               <label class="block-label selection-button-radio" for="radio-3">
-                <input id="radio-3" type="radio" name="assessment_stage" value="Live">
+                <input id="radio-3" type="radio" name="assessment_stage" value="Live" {% if user_info.assessment_stage == "Live" %}checked="checked"{% endif %}>
                 Live
               </label>
 

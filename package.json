@@ -42,6 +42,7 @@
     "serve-favicon": "2.3.0",
     "standard": "^8.6.0",
     "supertest": "^2.0.0",
-    "sync-request": "^3.0.1"
+    "sync-request": "^3.0.1",
+    "validator": "^6.2.0"
   }
 }

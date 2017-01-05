@@ -10,16 +10,31 @@
   <div class="grid-row">
     <div class="column-two-thirds">
 
+      {% if errors %}
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          Please fix the errors on this page
+        </h1>
+
+        <ul class="error-summary-list">
+          {% if errors.assessment_date %}<li><a href="#assessment-date">{{errors.assessment_date}}</a></li>{% endif %}
+        </ul>
+
+      </div>
+      {% endif %}
       <h1 class="heading-xlarge">
         Choose your assessment date
       </h1>
       <p>
-        Only available days can be selected. There are no assessments are held on Fridays.
+        Only available days can be selected. There are no assessments on Fridays.
       </p>
       <form action="pick-time" method="post">
         <h2 class="heading-medium">Which date would you like your assessment on?</h2>
-        <div class="form-group">
+        <div class="form-group {{ " error" if errors.assessment_date }}" id="assessment-date">
           <legend class="visually-hidden">Which date would you like your assessment on?</legend>
+          {% if errors.assessment_date %}<span class="error-message">{{errors.assessment_date}}</span>{% endif %}
+
           {% for idx, week in dates %}
             <fieldset>
               <h2 class="heading-small">Week {{idx}}</h2>

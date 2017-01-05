@@ -19,6 +19,23 @@
 
         </div>
       {% endif %}
+
+      {% if errors %}
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-2" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-2">
+          Please fix the errors on this page
+        </h1>
+
+        <ul class="error-summary-list">
+          {% if errors.name %}<li><a href="#service-manager-name">{{errors.name}}</a></li>{% endif %}
+          {% if errors.email %}<li><a href="#service-manager-email">{{errors.email}}</a></li>{% endif %}
+          {% if errors.dept %}<li><a href="#service-manager-department">{{errors.dept}}</a></li>{% endif %}
+        </ul>
+
+      </div>
+      {% endif %}
+
       <h1 class="heading-xlarge">
         About you
       </h1>
@@ -27,17 +44,26 @@
       </p>
         <form action="stage" method="post">
           <h2 class="heading-medium">About you</h2>
-          <div class="form-group">
-            <label class="form-label" for="service-manager-name">Your name</label>
-            <input class="form-control" id="service-manager-name" name="service_manager_name" type="text">
+          <div class="form-group {{ " error" if errors.name }}">
+            <label for="service-manager-name">
+              <span class="form-label-bold">Your name</span>
+              {% if errors.name %}<span class="error-message">{{errors.name}}</span>{% endif %}
+            </label>
+            <input class="form-control" id="service-manager-name" name="service_manager_name" type="text" value="{{user_info.name}}">
           </div>
-          <div class="form-group">
-            <label class="form-label" for="service-manager-email">Your email address</label>
-            <input class="form-control" id="service-manager-email" name="service_manager_email" type="email">
+          <div class="form-group {{ " error" if errors.email }}">
+            <label for="service-manager-email">
+              <span class="form-label-bold">Your email address</span>
+              {% if errors.email %}<span class="error-message">{{errors.email}}</span>{% endif %}
+            </label>
+            <input class="form-control" id="service-manager-email" name="service_manager_email" type="email" value="{{user_info.email}}">
           </div>
-          <div class="form-group">
-            <label class="form-label" for="service-manager-dept">Your department or agency</label>
-            <input class="form-control" id="service-manager-department" name="service_manager_department" type="text">
+          <div class="form-group {{ " error" if errors.dept }}">
+            <label for="service-manager-dept">
+              <span class="form-label-bold">Your department or agency</span>
+              {% if errors.dept %}<span class="error-message">{{errors.dept}}</span>{% endif %}
+            </label>
+            <input class="form-control" id="service-manager-department" name="service_manager_department" type="text" value="{{user_info.dept}}">
           </div>
 
           <p>
