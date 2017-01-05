@@ -2,7 +2,6 @@ var path = require('path')
 var express = require('express')
 var session = require('express-session')
 var nunjucks = require('nunjucks')
-
 var routes = require('./app/routes.js')
 var documentationRoutes = require('./docs/documentation_routes.js')
 var favicon = require('serve-favicon')
@@ -41,17 +40,6 @@ if (!useDocumentation) promoMode = 'false'
 if (env === 'production' && useAuth === 'true') {
   app.use(utils.basicAuth(username, password))
 }
-
-// CONNECT TO MongoDB
-var MongoClient = require('mongodb').MongoClient
-var dbURL = 'mongodb://mdbuser:Escalation123@ds155028.mlab.com:55028/gds-assessments'
-var db
-MongoClient.connect(dbURL, (err, database) => {
-  if (err) return console.log(err)
-  db = database
-})
-
-
 
 // Set up App
 var appViews = [path.join(__dirname, '/app/views/'), path.join(__dirname, '/lib/')]
