@@ -3,14 +3,30 @@ const util = require('util')
 var validator = require('validator');
 var getDatesInMonth = require('../lib/helper.js')
 
-var NotifyClient = require('notifications-node-client').NotifyClient
 
-var apiKey = process.env.NOTIFY_KEY
-
-var notifyClient = new NotifyClient(apiKey)
-
+// GET SECRETS
+var dbUser = process.env.DB_USER
+var dbPassword = process.env.DB_PASSWORD
+var notifyKey = process.env.NOTIFY_KEY
 var team_email = process.env.STANDARDS_TEAM_EMAIL
 
+
+// CONNECT TO DB
+var MongoClient = require('mongodb').MongoClient
+var dbURL = 'mongodb://' + dbUser + ':' + dbPassword + '@ds155028.mlab.com:55028/gds-assessments'
+var db
+MongoClient.connect(dbURL, (err, database) => {
+  if (err) return console.log(err)
+  db = database
+})
+
+
+// INITIALISE NOTIFY
+var NotifyClient = require('notifications-node-client').NotifyClient
+var notifyClient = new NotifyClient(notifyKey)
+
+
+// MONTH ARRAY
 var mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
@@ -236,7 +252,16 @@ router.post('/finish', function(req, res){
     //TODO submit the form into a database and send email via Notify
     var _userinfo = sess.user_info
 
-    //notify the user
+    // LOG _userinfo
+    console.log(_userinfo)
+
+    // SAVE TO DATABASE
+    db.collection('booking').save(_userinfo, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+    })
+
+    // NOTIFY - USER
     notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", _userinfo.email, {
       'service_name': _userinfo.service_name,
       'service_manager': _userinfo.name,
@@ -246,7 +271,7 @@ router.post('/finish', function(req, res){
       'briefing_deadline': _userinfo.assessment_date
     })
 
-    //notify the team
+    // NOTIFY - SERVICE ASSURANCE TEAM
     notifyClient.sendEmail("22098707-7d16-453a-8e02-baecc466c2d5", team_email, {
       'service_name': _userinfo.service_name,
       'service_manager': _userinfo.name,

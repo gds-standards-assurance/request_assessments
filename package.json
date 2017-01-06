@@ -32,6 +32,7 @@
     "gulp-util": "^3.0.7",
     "marked": "^0.3.6",
     "minimist": "0.0.8",
+    "mongodb": "^2.2.19",
     "notifications-node-client": "^2.3.1",
     "nunjucks": "^2.5.2",
     "portscanner": "^1.0.0",
