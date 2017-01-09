@@ -224,6 +224,10 @@ router.post('/summary', function(req, res) {
     var assessment_time = req.body.assessment_time
     sess.user_info.assessment_time = assessment_time
 
+    var briefing_deadline = new Date(sess.user_info.assessment_date)
+    briefing_deadline.setDate(briefing_deadline.getDate() - 14)
+    sess.user_info.briefing_deadline = briefing_deadline.toDateString()
+
     if(!assessment_time || typeof assessment_time === 'undefined') {
       errors.assessment_time = "Please choose the time"
     }
@@ -268,7 +272,7 @@ router.post('/finish', function(req, res){
       'assessment_date': _userinfo.assessment_date,
       'service_stage': _userinfo.assessment_stage,
       'assessment_time': _userinfo.assessment_time,
-      'briefing_deadline': _userinfo.assessment_date
+      'briefing_deadline': _userinfo.briefing_deadline
     })
 
     // NOTIFY - SERVICE ASSURANCE TEAM
@@ -278,7 +282,7 @@ router.post('/finish', function(req, res){
       'assessment_date': _userinfo.assessment_date,
       'service_stage': _userinfo.assessment_stage,
       'assessment_time': _userinfo.assessment_time,
-      'briefing_deadline': _userinfo.assessment_date
+      'briefing_deadline': _userinfo.briefing_deadline
     })
 
   } else {
