@@ -179,12 +179,21 @@ router.post('/pick-day', function(req, res){
     return res.render('start', {error: 'We cannot find the details of your request. You will need to start again'})
   }
 
-  var dates = getDatesInMonth(mlist.indexOf(_month), _startdate) //get dates in Month
-  sess.user_info.tmpdates = dates
-  console.log('\n dates in feb: ' + util.inspect(dates))
+  /* Grab already picked dates from DB so they can be made unavailable */
+  //TODO this is bad!! what if there's no data or what if the database is slow... ?
+  db.collection('booking').find().toArray(function(err, _bookings){
+    if (err || !_bookings) {
+      console.log("No bookings found")
+    } else {
+      var dates = getDatesInMonth(mlist.indexOf(_month), _startdate, _bookings) //get dates in Month >> this needs to be in the callback
 
-  console.log('\n Session details' + util.inspect(sess))
-  res.render('pick-day', {month_picked: assessment_month, dates: dates})
+      sess.user_info.tmpdates = dates
+
+      console.log('\n Session details' + util.inspect(sess))
+      res.render('pick-day', {month_picked: assessment_month, dates: dates})
+    }
+  });
+
 })
 
 router.post('/pick-time', function(req, res){

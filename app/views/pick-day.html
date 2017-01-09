@@ -39,9 +39,10 @@
             <fieldset>
               <h2 class="heading-small">Week {{idx}}</h2>
               {% for days in week %}
-                <label class="block-label selection-button-radio" for="{{idx}}-{{loop.index}}">
-                  <input id="{{idx}}-{{loop.index}}" type="radio" name="assessment_date" value="{{days}}">
-                  {{days}}
+                <label class="block-label selection-button-radio {% if days.available === false %}not-available{% endif %}" for="{{idx}}-{{loop.index}}">
+                  <input id="{{idx}}-{{loop.index}}" type="radio" name="assessment_date" value="{{days.day}}" {% if days.available === false %}disabled="disabled"{% endif %}>
+                  <!--{{days.available}}-->
+                  {{days.day}}
                 </label>
               {% endfor %}
             </fieldset>
