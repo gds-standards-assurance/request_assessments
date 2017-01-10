@@ -21,21 +21,99 @@
         Please confirm your details and assessment date is correct. GDS will use this information to contact you about your upcoming assessment.
       </p>
       <form action="finish" method="post">
-        <h2 class="heading-small">Your request</h2>
         {% if user_info %}
-          <div>Name: {{user_info.name}}</div>
+          <!-- <div>Name: {{user_info.name}}</div>
           <div>Email address: {{user_info.email}}</div>
           <div>Department: {{user_info.dept}}</div>
           <div>Service: {{user_info.service_name}}</div>
           <div>Stage: {{user_info.assessment_stage}}</div>
           <div>Date requested: {{user_info.assessment_date}}</div>
           <div>Time: {{user_info.assessment_time}}</div>
-        {% endif %}
+ -->
 
+        <table class="check-your-answers">
+
+            <thead>
+              <tr>
+                <th colspan="2">
+                  <h2 class="heading-medium">
+                    Your service assessment request details
+                  </h2>
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>
+                  Your details
+                </td>
+                <td>
+                  {{user_info.name}}<br>
+                  {{user_info.email}}<br>
+                  {{user_info.dept}}
+                </td>
+                <td class="change-answer">
+                  <a href="/start">
+                    Change <span class="visuallyhidden">Your details</span>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Your service
+                </td>
+                <td>
+                  {{user_info.service_name}} <br />
+                  {{user_info.assessment_stage}} assessment
+                </td>
+                <td class="change-answer">
+                  <a href="/stage">
+                    Change <span class="visuallyhidden">Your service details</span>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Date requested
+                </td>
+                <td>
+                  {{user_info.assessment_date}}
+                </td>
+                <td class="change-answer">
+                  <a href="/pick-date">
+                    Change <span class="visuallyhidden">Assessment date</span>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Time
+                </td>
+                <td>
+                  {{user_info.assessment_time}}
+                </td>
+                <td class="change-answer">
+                  <a href="#">
+                    Change <span class="visuallyhidden">time</span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 class="heading-medium">Now send your application</h2>
+
+          <p class="text">
+            By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.
+          </p>
 
         <p>
           <a href="#" class="button continue">Confirm and submit</a>
         </p>
+        {% endif %}
       </form>
     </div>
   </div>
